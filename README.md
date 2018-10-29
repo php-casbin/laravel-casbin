@@ -1,8 +1,9 @@
 # Laravel-Casbin
+
 Use Casbin in Laravel
 
 
-#### Installation
+### Installation
 
 Require this package in the `composer.json` of your Laravel project. This will download the package.
 
@@ -52,7 +53,7 @@ php artisan migrate
 This will create a new table named `casbin_rule`
 
 
-#### Usage
+### Usage
 
 ```php
 
@@ -70,10 +71,10 @@ if (Casbin::enforce($sub, $obj, $act) === true) {
 
 ```
 
-#### Define your own model.conf
+### Define your own model.conf
 
 You can modify the config file named `config/casbin-basic-model.conf`
 
-#### Learning Casbin
+### Learning Casbin
 
-You can find the full documentation of Casbin [on the website](https://www.baidu.com/).
+You can find the full documentation of Casbin [on the website](https://casbin.org/).

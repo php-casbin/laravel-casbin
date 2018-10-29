@@ -1,0 +1,31 @@
+{
+    "name": "casbin/laravel-adapter",
+    "keywords": ["casbin", "laravel", "casbin-adapter", "database"],
+    "description": "Use casbin in laravel. ",
+    "authors": [
+        {
+            "name": "TechLee",
+            "email": "techlee@qq.com"
+        }
+    ],
+    "license": "Apache-2.0",
+    "require": {
+    	"laravel/framework": "^5.1.0",
+    	"casbin/casbin": "^0.1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "CasbinAdapter\\Laravel\\": "src/"
+        }
+    },
+    "extra": {
+	    "laravel": {
+	      	"providers": [
+	        	"CasbinAdapter\\Laravel\\CasbinServiceProvider"
+	      	],
+	      	"aliases": {
+	        	"Casbin": "CasbinAdapter\\Laravel\\Facades\\Casbin"
+	      	}
+	    }
+  	}
+}

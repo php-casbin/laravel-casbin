@@ -7,12 +7,11 @@ class CreateCasbinRuleTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
-        Schema::create('casbin_rule', function (Blueprint $table) {
+        $connection = config('casbin.database.connection') ?: config('database.default');
+        Schema::connection($connection)->create(config('casbin.database.casbin_rules_table'), function (Blueprint $table) {
             $table->increments('id');
             $table->string('ptype')->nullable();
             $table->string('v0')->nullable();
@@ -27,11 +26,10 @@ class CreateCasbinRuleTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {
-        Schema::drop('casbin_rule');
+        $connection = config('casbin.database.connection') ?: config('database.default');
+        Schema::connection($connection)->dropIfExists(config('casbin.database.casbin_rules_table'));
     }
 }

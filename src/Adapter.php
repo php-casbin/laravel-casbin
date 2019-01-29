@@ -24,9 +24,9 @@ class Adapter implements AdapterContract
     public function savePolicyLine($ptype, array $rule)
     {
 
-        $col['`ptype`'] = $ptype;
+        $col['ptype'] = $ptype;
         foreach ($rule as $key => $value) {
-            $col['`v' . strval($key) . '`'] = $value;
+            $col['v' . strval($key)] = $value;
         }
 
         $this->casbinRule->create($col);

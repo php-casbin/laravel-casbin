@@ -1,4 +1,5 @@
 <?php
+
 namespace CasbinAdapter\Laravel;
 
 use CasbinAdapter\Laravel\Models\CasbinRule;
@@ -7,7 +8,8 @@ use Casbin\Persist\Adapter as AdapterContract;
 use Casbin\Persist\AdapterHelper;
 
 /**
- * DatabaseAdapter
+ * DatabaseAdapter.
+ *
  * @author techlee@qq.com
  */
 class Adapter implements AdapterContract
@@ -23,10 +25,9 @@ class Adapter implements AdapterContract
 
     public function savePolicyLine($ptype, array $rule)
     {
-
-        $col['`ptype`'] = $ptype;
+        $col['ptype'] = $ptype;
         foreach ($rule as $key => $value) {
-            $col['`v' . strval($key) . '`'] = $value;
+            $col['v'.strval($key)] = $value;
         }
 
         $this->casbinRule->create($col);
@@ -55,6 +56,7 @@ class Adapter implements AdapterContract
                 $this->savePolicyLine($ptype, $rule);
             }
         }
+
         return true;
     }
 
@@ -68,13 +70,14 @@ class Adapter implements AdapterContract
         $result = $this->casbinRule->where('ptype', $ptype);
 
         foreach ($rule as $key => $value) {
-            $result->where('v' . strval($key), $value);
+            $result->where('v'.strval($key), $value);
         }
+
         return $result->delete();
     }
 
     public function removeFilteredPolicy($sec, $ptype, $fieldIndex, ...$fieldValues)
     {
-        throw new CasbinException("not implemented");
+        throw new CasbinException('not implemented');
     }
 }

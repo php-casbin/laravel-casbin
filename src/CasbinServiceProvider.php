@@ -16,7 +16,8 @@ class CasbinServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/casbin.php', 'casbin');
         if ($this->app->runningInConsole()) {
             $this->publishes([__DIR__.'/../database/migrations' => database_path('migrations')], 'laravel-casbin-migrations');
-            $this->publishes([__DIR__.'/../config/casbin-basic-model.conf' => config_path('casbin-basic-model.conf')], 'config');
+            $this->publishes([__DIR__.'/../config/casbin-basic-model.conf' => config_path('casbin-basic-model.conf')], 'laravel-casbin-config');
+            $this->publishes([__DIR__.'/../config/casbin.php' => config_path('casbin.php')], 'laravel-casbin-config');
         }
     }
 

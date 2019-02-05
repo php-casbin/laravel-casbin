@@ -1,7 +1,10 @@
 # Laravel-Casbin
 
-Use Casbin in Laravel
+[![Latest Stable Version](https://poser.pugx.org/casbin/laravel-adapter/v/stable)](https://packagist.org/packages/casbin/laravel-adapter)
+[![Total Downloads](https://poser.pugx.org/casbin/laravel-adapter/downloads)](https://packagist.org/packages/casbin/laravel-adapter)
+[![License](https://poser.pugx.org/casbin/laravel-adapter/license)](https://packagist.org/packages/casbin/laravel-adapter)
 
+Use [Casbin](https://github.com/php-casbin/php-casbin) in Laravel.
 
 ### Installation
 
@@ -41,7 +44,7 @@ To publish the config, run the vendor publish command:
 php artisan vendor:publish
 ```
 
-This will create a new model config file named `config/casbin-basic-model.conf`.
+This will create a new model config file named `config/casbin-basic-model.conf` and a new casbin config file named `config/casbin.php`.
 
 
 To migrate the migrations, run the migrate command:
@@ -64,7 +67,7 @@ $obj = "data1"; // the resource that is going to be accessed.
 $act = "read"; // the operation that the user performs on the resource.
 
 if (Casbin::enforce($sub, $obj, $act) === true) {
-    // permit alice to read data1x
+    // permit alice to read data1
 } else {
     // deny the request, show an error
 }

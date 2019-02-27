@@ -1,5 +1,7 @@
 # Laravel-Casbin
 
+[![Build Status](https://travis-ci.org/php-casbin/laravel-casbin.svg?branch=master)](https://travis-ci.org/php-casbin/laravel-casbin)
+[![Coverage Status](https://coveralls.io/repos/github/php-casbin/laravel-casbin/badge.svg)](https://coveralls.io/github/php-casbin/laravel-casbin)
 [![Latest Stable Version](https://poser.pugx.org/casbin/laravel-adapter/v/stable)](https://packagist.org/packages/casbin/laravel-adapter)
 [![Total Downloads](https://poser.pugx.org/casbin/laravel-adapter/downloads)](https://packagist.org/packages/casbin/laravel-adapter)
 [![License](https://poser.pugx.org/casbin/laravel-adapter/license)](https://packagist.org/packages/casbin/laravel-adapter)

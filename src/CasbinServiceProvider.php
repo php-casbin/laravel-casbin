@@ -35,7 +35,7 @@ class CasbinServiceProvider extends ServiceProvider
             if ('file' == $configType) {
                 $model->loadModel(config('casbin.model.config_file_path'));
             } elseif ('text' == $configType) {
-                $model->loadModel(config('casbin.model.config_text'));
+                $model->loadModelFromText(config('casbin.model.config_text'));
             }
 
             return new Enforcer($model, $this->app->make($adapter));

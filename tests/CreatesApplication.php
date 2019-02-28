@@ -23,6 +23,7 @@ trait CreatesApplication
         });
 
         $app->make(Kernel::class)->bootstrap();
+        $app->register(\CasbinAdapter\Laravel\CasbinServiceProvider::class);
 
         $app['config']->set('database.default', 'mysql');
         $app['config']->set('database.connections.mysql.charset', 'utf8');
@@ -46,13 +47,12 @@ e = some(where (p.eft == allow))
 m = g(r.sub, p.sub) && r.obj == p.obj && r.act == p.act
 EOT;
         $app['config']->set('casbin.model.config_text', $text);
-
-        $app->register(\CasbinAdapter\Laravel\CasbinServiceProvider::class);
+        // $app['config']->set('casbin.log.enabled', true);
 
         $this->app = $app;
         $this->artisan('vendor:publish', ['--provider' => 'CasbinAdapter\Laravel\CasbinServiceProvider']);
         $this->artisan('migrate', ['--force' => true]);
-        
+
         if (method_exists($this, 'afterApplicationCreated')) {
             $this->afterApplicationCreated(function () {
                 $this->initTable();
@@ -63,39 +63,16 @@ EOT;
 
         return $this->app;
     }
-    
-    protected function initTable(){
+
+    protected function initTable()
+    {
         CasbinRule::truncate();
 
-        CasbinRule::create([
-            'ptype' => 'p',
-            'v0' => 'alice',
-            'v1' => 'data1',
-            'v2' => 'read',
-        ]);
-        CasbinRule::create([
-            'ptype' => 'p',
-            'v0' => 'bob',
-            'v1' => 'data2',
-            'v2' => 'write',
-        ]);
+        CasbinRule::create(['ptype' => 'p', 'v0' => 'alice', 'v1' => 'data1', 'v2' => 'read']);
+        CasbinRule::create(['ptype' => 'p', 'v0' => 'bob', 'v1' => 'data2', 'v2' => 'write']);
 
-        CasbinRule::create([
-            'ptype' => 'p',
-            'v0' => 'data2_admin',
-            'v1' => 'data2',
-            'v2' => 'read',
-        ]);
-        CasbinRule::create([
-            'ptype' => 'p',
-            'v0' => 'data2_admin',
-            'v1' => 'data2',
-            'v2' => 'write',
-        ]);
-        CasbinRule::create([
-            'ptype' => 'g',
-            'v0' => 'alice',
-            'v1' => 'data2_admin',
-        ]);
+        CasbinRule::create(['ptype' => 'p', 'v0' => 'data2_admin', 'v1' => 'data2', 'v2' => 'read']);
+        CasbinRule::create(['ptype' => 'p', 'v0' => 'data2_admin', 'v1' => 'data2', 'v2' => 'write']);
+        CasbinRule::create(['ptype' => 'g', 'v0' => 'alice', 'v1' => 'data2_admin']);
     }
 }

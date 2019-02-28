@@ -5,6 +5,7 @@ namespace CasbinAdapter\Laravel;
 use Casbin\Enforcer;
 use Casbin\Model\Model;
 use Illuminate\Support\ServiceProvider;
+use Casbin\Log\Log;
 
 class CasbinServiceProvider extends ServiceProvider
 {
@@ -27,18 +28,20 @@ class CasbinServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind('casbin', function () {
-            $adapter = config('casbin.adapter');
-
-            $configType = config('casbin.model.config_type');
+            $loggerEnable = config('casbin.log.enabled');
+            $logger = config('casbin.log.logger');
+            Log::setLogger(new $logger($this->app['log']));
 
             $model = new Model();
+            $configType = config('casbin.model.config_type');
             if ('file' == $configType) {
                 $model->loadModel(config('casbin.model.config_file_path'));
             } elseif ('text' == $configType) {
                 $model->loadModelFromText(config('casbin.model.config_text'));
             }
 
-            return new Enforcer($model, $this->app->make($adapter));
+            $adapter = config('casbin.adapter');
+            return new Enforcer($model, $this->app->make($adapter), $loggerEnable);
         });
     }
 }

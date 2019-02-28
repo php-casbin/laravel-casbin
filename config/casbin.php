@@ -26,4 +26,12 @@ return [
         // CasbinRule tables and model.
         'casbin_rules_table' => 'casbin_rule',
     ],
+
+    'log' => [
+        // changes whether Casbin will log messages to the Logger.
+        'enabled' => false,
+
+        // Casbin Logger
+        'logger' => CasbinAdapter\Laravel\Logger::class,
+    ],
 ];

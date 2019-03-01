@@ -9,7 +9,8 @@ class AdapterTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function testEnforce(){
+    public function testEnforce()
+    {
         $this->assertTrue(Casbin::enforce('alice', 'data1', 'read'));
 
         $this->assertFalse(Casbin::enforce('bob', 'data1', 'read'));
@@ -26,7 +27,8 @@ class AdapterTest extends TestCase
         $this->assertTrue(Casbin::enforce('eve', 'data3', 'read'));
     }
 
-    public function testSavePolicy(){
+    public function testSavePolicy()
+    {
         $this->assertFalse(Casbin::enforce('alice', 'data4', 'read'));
 
         $model = Casbin::getModel();
@@ -38,7 +40,8 @@ class AdapterTest extends TestCase
         $this->assertTrue(Casbin::enforce('alice', 'data4', 'read'));
     }
 
-    public function testRemovePolicy(){
+    public function testRemovePolicy()
+    {
         $this->assertFalse(Casbin::enforce('alice', 'data5', 'read'));
 
         Casbin::addPermissionForUser('alice', 'data5', 'read');
@@ -46,6 +49,25 @@ class AdapterTest extends TestCase
 
         Casbin::deletePermissionForUser('alice', 'data5', 'read');
         $this->assertFalse(Casbin::enforce('alice', 'data5', 'read'));
+    }
 
+    public function testRemoveFilteredPolicy()
+    {
+        $this->assertTrue(Casbin::enforce('alice', 'data1', 'read'));
+
+        Casbin::removeFilteredPolicy(1, 'data1');
+        $this->assertFalse(Casbin::enforce('alice', 'data1', 'read'));
+        $this->assertTrue(Casbin::enforce('bob', 'data2', 'write'));
+        $this->assertTrue(Casbin::enforce('alice', 'data2', 'read'));
+        $this->assertTrue(Casbin::enforce('alice', 'data2', 'write'));
+
+        Casbin::removeFilteredPolicy(1, 'data2', 'read');
+        $this->assertTrue(Casbin::enforce('bob', 'data2', 'write'));
+        $this->assertFalse(Casbin::enforce('alice', 'data2', 'read'));
+        $this->assertTrue(Casbin::enforce('alice', 'data2', 'write'));
+
+        Casbin::removeFilteredPolicy(2, 'write');
+        $this->assertFalse(Casbin::enforce('bob', 'data2', 'write'));
+        $this->assertFalse(Casbin::enforce('alice', 'data2', 'write'));
     }
 }

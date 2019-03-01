@@ -1,1 +1,0 @@
-C:30:"PHPUnit\Runner\TestResultCache":334:{a:2:{s:7:"defects";a:0:{}s:5:"times";a:5:{s:30:"Tests\AdapterTest::testEnforce";d:3.7290000000000001;s:32:"Tests\AdapterTest::testAddPolicy";d:4.8399999999999999;s:33:"Tests\AdapterTest::testSavePolicy";d:4.2249999999999996;s:35:"Tests\AdapterTest::testRemovePolicy";d:4.3940000000000001;s:28:"Tests\LoggerTest::testLogger";d:2.028;}}}

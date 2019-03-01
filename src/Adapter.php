@@ -3,7 +3,6 @@
 namespace CasbinAdapter\Laravel;
 
 use CasbinAdapter\Laravel\Models\CasbinRule;
-use Casbin\Exceptions\CasbinException;
 use Casbin\Persist\Adapter as AdapterContract;
 use Casbin\Persist\AdapterHelper;
 
@@ -76,8 +75,23 @@ class Adapter implements AdapterContract
         return $result->delete();
     }
 
+    /**
+     * @param string $sec
+     * @param string $ptype
+     * @param int    $fieldIndex
+     * @param mixed  ...$fieldValues
+     *
+     * @return bool
+     */
     public function removeFilteredPolicy($sec, $ptype, $fieldIndex, ...$fieldValues)
     {
-        throw new CasbinException('not implemented');
+        $result = $this->casbinRule->where('ptype', $ptype);
+        foreach (range(0, 5) as $value) {
+            if ($fieldIndex <= $value && $value < $fieldIndex + count($fieldValues)) {
+                $result->where('v'.strval($value), $fieldValues[$value - $fieldIndex]);
+            }
+        }
+
+        return $result->delete();
     }
 }

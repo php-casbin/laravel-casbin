@@ -8,6 +8,8 @@
 
 Use [Casbin](https://github.com/php-casbin/php-casbin) in Laravel.
 
+#### It is worth mentioning that we now recommend [`laravel-authz`](https://github.com/php-casbin/laravel-authz).
+
 ### Installation
 
 Require this package in the `composer.json` of your Laravel project. This will download the package.

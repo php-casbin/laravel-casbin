@@ -88,7 +88,9 @@ class Adapter implements AdapterContract
         $result = $this->casbinRule->where('ptype', $ptype);
         foreach (range(0, 5) as $value) {
             if ($fieldIndex <= $value && $value < $fieldIndex + count($fieldValues)) {
-                $result->where('v'.strval($value), $fieldValues[$value - $fieldIndex]);
+                if ('' != $fieldValues[$value - $fieldIndex]) {
+                    $result->where('v'.strval($value), $fieldValues[$value - $fieldIndex]);
+                }
             }
         }
 
